@@ -36,8 +36,6 @@ class ProductController {
 
             $template = new Template();
             $template->render("product/index.php", $row);
-        } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            die("====");
         }
     }
 
