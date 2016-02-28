@@ -1,0 +1,1 @@
+<img width="100%" src="<?=BASE_URL?>static/img/error_image.png"F>
