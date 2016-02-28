@@ -2,6 +2,12 @@
 
 class ProductController {
 
+    public function __construct() {
+        if ($_SESSION['type'] == 0) {
+            header("Location: " . BASE_URL . "userpanel/index");
+        }
+    }
+
     function index() {
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $product = new ProductModel();
