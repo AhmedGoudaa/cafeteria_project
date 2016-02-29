@@ -1,3 +1,10 @@
+	<?php
+		$type = $_SESSION['type'];
+		$usrId= $_SESSION['user_id'];
+		//$type=0; // normal user
+		//$usrId=3;
+
+	?>
 
     	<div id="main" class="container-fluid">
     		<div class="row">
@@ -16,7 +23,7 @@
 						<form role="form"  method="post">
 
 							<input class="form-control" type="hidden" name="order_id" 	 id="order_id"		value=""/>
-							<input class="form-control" type="hidden" name="user_id" 	 id="user_id"		value="2"/>
+							<input class="form-control" type="hidden" name="user_id" 	 id="user_id"		value=""/>
 							<!--<input class="form-control" type="hidden" name="room_id" 	 id="room_id"		value=""/> -->
 
 							    		<?php $time=time(); 
@@ -77,13 +84,36 @@
 
 				<!-- products list  -->
 				<div class="col-sm-7 col-md-7 col-lg-7 col-xs-7">
+
+							<div id="userSelect" class="">
+						 		<label for="idUser">Add To User:</label>
+						 		<select name="idUser" class="form-control" id="idUser">
+
+						 		<?php  
+						   			 if (!empty($data[2])){
+						        			for($i = 0; $i < count($data[2]); $i++){ ?>
+						           
+						            	<option  value="<?=$data[2][$i][0]?>"><?=$data[2][$i][1].' ' ?><?=$data[2][$i][2] ?></option>						           
+						       <?php }
+						   		 }    
+    							?>
+								</select>
+						 	</div>
+
+						 	<div id="mostRequested">
+								<span> under constructing </span>		
+						 	</div>
+						 	
+						 	<hr/>
+
+
 						<?php
 						    if (!empty($data[1])){
 						        for($i = 0; $i < count($data[1]); $i++){ ?>
 						           
 						            
-						        	<div style="width:30% ; display:inline-block;">
-						        		<button id="addProduct" prod_id="<?=$data[1][$i][0]?>" prod_name="<?=$data[1][$i][1]?>" prod_price="<?=$data[1][$i][2]?>"><img width='150px' height='100px'  src="<?= BASE_URL ?>/static/img/<?= $data[1][$i][4] ?>"/></button>
+						        	<div class='mainList' style="width:30% ; display:inline-block;">
+						        		<button id="addProduct" prod_id="<?=$data[1][$i][0]?>" prod_name="<?=$data[1][$i][1]?>" prod_price="<?=$data[1][$i][2]?>"><img width='150px' height='100px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[1][$i][4] ?>"/></button>
 						        		<span style="color:blue; font-size:20px"><?=	$data[1][$i][1] ?><span>
 						        		<span style="color:red;font-weight:bold ; font-size:25px"><?= $data[1][$i][2].'L.E' ?><span>
 						        	</div>						           
@@ -94,6 +124,11 @@
 						     
 						    
     					?>
+
+
+					<div id="productsList">
+					</div>
+
 				</div>
 
     		</div>
@@ -103,6 +138,80 @@
 
 <script>
     $(document).ready(function () {
+
+
+    	<?php
+    		if($type===1){
+    				echo '$("#userSelect").show();';
+
+    			    echo '$("#user_id").val($("#idUser").val());
+
+				    	$("#idUser").on("change", function() {
+				  			 $("#user_id").val(this.val()); 
+						});';
+
+					echo '$("#mostRequested").hide();';
+    		}else
+    		{
+    				echo '$("#mostRequested").show();';
+    			    echo '$("#user_id").val('.$usrId.');';
+
+    			    echo '$("#userSelect").hide();';
+
+
+    		}
+
+    	?>
+
+  //   	$("#user_id").val($("#idUser").val());
+
+  //   	$("#idUser").on("change", function() {
+  // 			 $("#user_id").val(this.val()); 
+		// });
+
+
+    	(function update() {
+		    	$.ajax({
+		    			type: "GET",
+		        		url: "<?= BASE_URL ?>userpanel/update",             
+		        		dataType: "text",   //expect html to be returned                
+		        		success:   function(response){                    
+           							 //$("#responsecontainer").html(response); 
+            							//alert(response.insertData);
+            							var data=JSON.parse(response);
+            							//var products=data.insertData[0];
+            							//console.log(data.insertData[0][1]);
+            							//alert(data.insertData);
+
+            							
+            				
+						    if (data.insertData){
+						    	$(".mainList").remove();
+						        for(i = 0; i < data.insertData.length; i++){
+						           
+						            
+					        	var pros_div= "<div class='mainList' style='width:30% ; display:inline-block;'> <button id='addProduct' prod_id="+data.insertData[i][0]+" prod_name="+data.insertData[i][1] +" prod_price="+data.insertData[i][2] +"><img width='150px' height='100px'  src='<?= BASE_URL ?>static/img/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px'>"+data.insertData[i][1]+"<span> <span style='color:red;font-weight:bold ; font-size:25px'>"+data.insertData[i][2]+" L.E<span>	</div>"	;					           
+						        
+						        $("#productsList").before(pros_div);
+
+
+						        }
+
+						    }    
+						     
+						    
+    					
+
+
+
+       								 }                  
+		   
+		            	//alert(response);
+		                // pass existing options
+		   				}).then(function() {           // on completion, restart
+		       				setTimeout(update,3000);  // function refers to itself
+		    				});
+			})(); 
 
 
     	var noOfOccurance=[];
@@ -150,7 +259,7 @@
     		if (exists===0)
     			{
 
-					var addPro = "<div id=" + 10000 + pro_id + " class='row alert alert-success fade in'><div class='col-sm-3 col-md-3 col-lg-3 col-xs-3 '>"+pro_nam+"</div><div class='col-sm-5 col-md-5 col-lg-5 col-xs-5 '><label><a id='min_btn' min_id=" + 100 + pro_id + "  class='minus  btn-lg btn btn-warning'  href='#'><i class='glyphicon glyphicon-minus'></i></a><span id="+20+pro_id+"  class='qu" + pro_id + " label label-primary'>1</span><a id='plus_btn' plus_id=" +pro_id + " class='plus  btn-lg btn btn-info' href='#'><i class='glyphicon glyphicon-plus'></i></a></label></div><div class='col-sm-2 col-md-2 col-lg-2 col-xs-2 '><span id="+10+pro_id+">" + pro_pric+"</span>L.E</div><div class='col-sm-2 col-md-2 col-lg-2 col-xs-2 '><a href='#' id='close_btn' class='close' close_id=" + 1000 + pro_id  + " data-dismiss='alert' aria-label='close'>&times;</a></div></div>";
+					var addPro = "<div id=" + (10000 + pro_id) + " class='row alert alert-success fade in'><div class='col-sm-3 col-md-3 col-lg-3 col-xs-3 '>"+pro_nam+"</div><div class='col-sm-5 col-md-5 col-lg-5 col-xs-5 '><label><a id='min_btn' min_id=" + (100 + pro_id) + "  class='minus  btn-lg btn btn-warning'  href='#'><i class='glyphicon glyphicon-minus'></i></a><span id="+(20+pro_id)+"  class='qu" + pro_id + " label label-primary'>1</span><a id='plus_btn' plus_id=" +pro_id + " class='plus  btn-lg btn btn-info' href='#'><i class='glyphicon glyphicon-plus'></i></a></label></div><div class='col-sm-2 col-md-2 col-lg-2 col-xs-2 '><span id="+(10+pro_id)+">" + pro_pric+"</span>L.E</div><div class='col-sm-2 col-md-2 col-lg-2 col-xs-2 '><a href='#' id='close_btn' class='close' close_id=" + (1000 + pro_id)  + " data-dismiss='alert' aria-label='close'>&times;</a></div></div>";
 					$("#selectedProducts").after(addPro);
 					noOfOccurance.push(pro_id);
 					//total_item_price=pro_pric;
@@ -210,7 +319,7 @@
 					$('#order_details').val(JSON.stringify(requested_products_details));
 					////////////////////////////////////////////////////////////////
 
-				var requested_pric="#"+10+k;
+				var requested_pric="#"+(10+k);
 					$(requested_pric).text(total_item_price);
 
 
@@ -231,10 +340,10 @@
 		function img_plus_fn(proId,proPrice){
 			var k=proId;
 			
-			var sp = parseFloat($("#"+20+k).text());
+			var sp = parseFloat($("#"+(20+k)).text());
 
 			var current_price = requested_products[k];
-				$("#"+20+k).text(sp + 1);
+				$("#"+(20+k)).text(sp + 1);
 
 					total_item_price=current_price * (sp+1)  ;
 
@@ -247,7 +356,7 @@
 
 
 
-				var requested_pric="#"+10+k;
+				var requested_pric="#"+(10+k);
 					$(requested_pric).text(total_item_price);
 
 
@@ -269,7 +378,7 @@
 
 	function min_fn(e) {
 			var idee=$(this).attr("min_id");
-			var l=parseInt(idee)-1000;
+			var l=parseInt(idee)-100;
 					e.preventDefault();
 				var sp = parseFloat($(this).next('span').text());
 
@@ -283,16 +392,16 @@
 					total_item_price=current_price * (sp-1)  ;
 
 					/////////////////////////item total prices counter//////////////
-					requested_products_details[l] = sp-1;
+					//requested_products_details[l] = sp-1;
 					//$('#order_details').val(requested_products_details);
 
-					$('#order_details').val(JSON.stringify(requested_products_details));
+					//$('#order_details').val(JSON.stringify(requested_products_details));
 
 					////////////////////////////////////////////////////////////////
 
 
 
-					var requested_pric="#"+10+l;
+					var requested_pric="#"+(10+l);
 					$(requested_pric).text(total_item_price);
 
 
@@ -316,7 +425,7 @@
 				}
 			/////////////////////////////////////////////////////////////////////	
 
-				alert(requested_products_details.toSource());
+				//alert(requested_products_details.toSource());
 
 
 				} else if(sp===0) {
@@ -336,10 +445,10 @@
 					delete requested_products_details[l];
 					//$('#order_details').val(requested_products_details);
 					$('#order_details').val(JSON.stringify(requested_products_details));
-					alert(requested_products_details.toSource());
+					//alert(requested_products_details.toSource());
 					////////////////////////////////////////////////////////////////
 					
-					$("#10000"+l+"").remove();
+					$("#"+(10000+l)+"").remove();
 
 				}
 
@@ -354,7 +463,7 @@
 
 					
 			 var ideee=$(this).attr("close_id");
-			 var m=parseInt(ideee)-10000;
+			 var m=parseInt(ideee)-1000;
 			 	e.preventDefault();
 
 					//////////////remove element from array to be able to add again//////////////////////
@@ -372,10 +481,10 @@
 					$('#order_details').val(JSON.stringify(requested_products_details));
 					////////////////////////////////////////////////////////////////
 
-					alert(requested_products_details.toSource());
+					//alert(requested_products_details.toSource());
 
 					//////////////////total price counter////////////
-						var requested_pric="#"+10+m;
+						var requested_pric="#"+(10+m);
 						var current_price=$(requested_pric).text();
 
 						var total_price=$('.tot_price').text();
@@ -388,14 +497,9 @@
 
 					/////////////////////////////////////////////////	
 					
-					$("#10000"+m+"").remove();
+					$("#"+(10000+m)+"").remove();
 			};
 
-
-///////////////////////////////////////////////////////////////////////////
-
-
-////////////////////////////CheckOut operation/////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////
 
