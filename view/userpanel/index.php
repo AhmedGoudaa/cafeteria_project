@@ -100,22 +100,42 @@
 								</select>
 						 	</div>
 
-						 	<div id="mostRequested">
-								<span> under constructing </span>		
+						 	<hr/>
+						 	<div class='col-sm-12 col-md-12 col-lg-12 col-xs-12' id="mostRequested" >
+						 		<div><label >Most Requested Products:</label></div>
+						 	<?php
+						    if (!empty($data[3])){
+						        for($i = 0; $i < count($data[3]); $i++){?>
+						           
+						            
+						        	<div id="" class='col-sm-3 col-md-3 col-lg-3 col-xs-3' >
+						        		<button ><img width='100%' height='80px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[1][$i][4] ?>"/></button>
+						        		<span style="color:blue; display:block;"><?=$data[1][$i][1].' ' ?><span style="color:red;font-weight:bold ;"><?= $data[1][$i][2].' L.E' ?></span> </span>
+						        		
+						        	</div>	
+						        	<br/>					           
+						           
+						       <?php }
+
+						    }    
+						     
+						    
+    						?>
+		
 						 	</div>
 						 	
 						 	<hr/>
 
-
+					<div class='col-sm-12 col-md-12 col-lg-12 col-xs-12'>
 						<?php
 						    if (!empty($data[1])){
 						        for($i = 0; $i < count($data[1]); $i++){ ?>
 						           
 						            
-						        	<div class='mainList' style="width:30% ; display:inline-block;">
-						        		<button id="addProduct" prod_id="<?=$data[1][$i][0]?>" prod_name="<?=$data[1][$i][1]?>" prod_price="<?=$data[1][$i][2]?>"><img width='150px' height='100px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[1][$i][4] ?>"/></button>
-						        		<span style="color:blue; font-size:20px"><?=	$data[1][$i][1] ?><span>
-						        		<span style="color:red;font-weight:bold ; font-size:25px"><?= $data[1][$i][2].'L.E' ?><span>
+						        	<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 mainList'>
+						        		<button id="addProduct" style='width:100%' prod_id="<?=$data[1][$i][0]?>" prod_name="<?=$data[1][$i][1]?>" prod_price="<?=$data[1][$i][2]?>"><img width='100%' height='100px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[1][$i][4] ?>"/></button>
+						        		<span style="color:blue; font-size:20px"><?=	$data[1][$i][1].' ' ?><span style="color:red;font-weight:bold ; font-size:25px"><?= $data[1][$i][2].'L.E' ?></span></span>
+						        		
 						        	</div>						           
 						           
 						       <?php }
@@ -128,7 +148,7 @@
 
 					<div id="productsList">
 					</div>
-
+				  </div>
 				</div>
 
     		</div>
@@ -190,7 +210,7 @@
 						        for(i = 0; i < data.insertData.length; i++){
 						           
 						            
-					        	var pros_div= "<div class='mainList' style='width:30% ; display:inline-block;'> <button id='addProduct' prod_id="+data.insertData[i][0]+" prod_name="+data.insertData[i][1] +" prod_price="+data.insertData[i][2] +"><img width='150px' height='100px'  src='<?= BASE_URL ?>static/img/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px'>"+data.insertData[i][1]+"<span> <span style='color:red;font-weight:bold ; font-size:25px'>"+data.insertData[i][2]+" L.E<span>	</div>"	;					           
+					        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 mainList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name="+data.insertData[i][1] +" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>static/img/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
 						        
 						        $("#productsList").before(pros_div);
 
@@ -209,7 +229,7 @@
 		            	//alert(response);
 		                // pass existing options
 		   				}).then(function() {           // on completion, restart
-		       				setTimeout(update,3000);  // function refers to itself
+		       				setTimeout(update,300000);  // function refers to itself
 		    				});
 			})(); 
 

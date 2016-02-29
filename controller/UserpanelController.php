@@ -4,6 +4,9 @@ class UserpanelController{
 
 	function index(){
 
+        //$usrId= $_SESSION['user_id'];
+        $usrId= 2;
+
 		if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $product = new ProductModel();
 
@@ -40,9 +43,20 @@ class UserpanelController{
             }
 
 
-            $row = array( $rooms,$products,$users); 
+
+            $mostR = new OrderdetailsModel();
+            $mostR ->user_ID = $usrId;
+            $result = $mostR->selectJoin();
+            $num_most_results = mysqli_num_rows($result);
+            $mostReq = array();
+            for ($i = 0; $i < $num_most_results; $i++) {
+                $mostReq[] = mysqli_fetch_row($result);
+            }
+
+           
+
+            $row = array( $rooms,$products,$users,$mostReq); 
             $template = new Template();
-            //$template->render("userpanel/index.php",$products);
             $template->render("userpanel/index.php",$row);
 
         } 
@@ -150,7 +164,15 @@ class UserpanelController{
 
 
 
-            $row = array( $rooms,$products,$users); 
+            $mostR = new OrderdetailsModel();
+            $result = $mostR->selectJoin();
+            $num_most_results = mysqli_num_rows($result);
+            $mostReq = array();
+            for ($i = 0; $i < $num_most_results; $i++) {
+                $mostReq[] = mysqli_fetch_row($result);
+            }
+
+            $row = array( $rooms,$products,$users,$mostReq); 
 
             $template = new Template();
             $template->render("userpanel/index.php",$row);
@@ -182,9 +204,6 @@ class UserpanelController{
 
 
     }
-
-
-
 
 
 }
