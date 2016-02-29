@@ -2,6 +2,12 @@
 
 class ProductController {
 
+    public function __construct() {
+        if ($_SESSION['type'] == 0) {
+            header("Location: " . BASE_URL . "userpanel/index");
+        }
+    }
+
     function index() {
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $product = new ProductModel();
@@ -30,8 +36,6 @@ class ProductController {
 
             $template = new Template();
             $template->render("product/index.php", $row);
-        } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            die("====");
         }
     }
 

@@ -24,13 +24,38 @@ class UserModel extends Database {
         } else {
             $sql = "SELECT u.*,r.room_no FROM user u, room r WHERE u.room_id = r.id and u.id =" . $id;
         }
-        $result = mysqli_query($conn, $sql." order by u.id");
+        $result = mysqli_query($conn, $sql . " order by u.id");
         $num_results = mysqli_num_rows($result);
         $users = array();
         for ($i = 0; $i < $num_results; $i++) {
             $users[] = mysqli_fetch_assoc($result);
         }
         return $users;
+    }
+
+    function checkExistence($email) {
+        global $conn;
+        $sql = "SELECT email FROM user WHERE email = '$email'";
+        $result = mysqli_query($conn, $sql);
+        $num_results = mysqli_num_rows($result);
+        if ($num_results > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function checkLogin($email, $password) {
+        global $conn;
+        $sql = "SELECT * FROM user WHERE email = '$email' and password = md5('$password')";
+        $result = mysqli_query($conn, $sql);
+        $num_results = mysqli_num_rows($result);
+        $row = mysqli_fetch_assoc($result);
+
+        if ($num_results > 0) {
+            return $row;
+        } else {
+            return false;
+        }
     }
 
 }

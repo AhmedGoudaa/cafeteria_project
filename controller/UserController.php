@@ -2,6 +2,12 @@
 
 class UserController {
 
+    public function __construct() {
+        if ($_SESSION['type'] == 0) {
+            header("Location: " . BASE_URL . "userpanel/index");
+        }
+    }
+
     function index() {
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $user = new UserModel();
@@ -53,6 +59,7 @@ class UserController {
                     $error['fileError'] = 'Problem: file is not image';
                 }
             }
+            $user = new UserModel();
 
             if (empty($_POST["user_fname"])) {
                 $error['u_fnameError'] = "* First name is required";
@@ -79,8 +86,9 @@ class UserController {
             if (empty($_POST["user_email"])) {
                 $error['u_emailError'] = "* Email is required";
             } else if (!preg_match("/^([a-zA-Z]|[a-zA-Z][a-zA-Z0-9_\-\.]+)@[a-zA-Z0-9\-]+((\.[a-zA-Z]{2,3}){1}|(\.[a-zA-Z]{2,3}\.[a-zA-Z]{2}){1})$/", $_POST["user_email"])) {
-                $u_email = $_POST["user_email"];
                 $error['u_emailError'] = "* Email isn't valid";
+            } else if ($user->checkExistence($_POST["user_email"])) {
+                $error['u_emailError'] = "* This email exists before";
             } else {
                 $u_email = $_POST["user_email"];
             }
@@ -242,7 +250,7 @@ class UserController {
             if (empty($errors)) {
                 $valid = true;
             }
-            
+
             if ($valid) {
                 $user = new UserModel();
                 if (!empty($_FILES['e_user_photo']['name'])) {
