@@ -45,18 +45,29 @@
                         </button>
                         <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-home"></i>GemyCafe</a>
                     </div>
-                    <ul class="nav navbar-nav collapse navbar-collapse" id='my-nav'>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="<?= BASE_URL ?>product/index">Products</a></li>
-                        <li><a href="<?= BASE_URL ?>user/index">Users</a></li>
-                        <li><a href="#">Manual Order</a></li>
-                        <li><a href="#">Checks</a></li>
-                    </ul>
-                    <div>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="<?= BASE_URL ?>login/index"><i class="glyphicon glyphicon-user"></i> Sign Up</a></li>
-                            <li><a href="<?= BASE_URL ?>login/index"><i class="glyphicon glyphicon-log-in"></i> Login</a></li>
+                    <?php if (!empty($_SESSION)) { ?>
+                        <ul class="nav navbar-nav collapse navbar-collapse" id='my-nav'>
+                            <li><a href="<?= BASE_URL ?>userpanel/index">Home</a></li>
+                            <?php if ($_SESSION['type'] == 1) { ?>
+                                <li><a href="<?= BASE_URL ?>product/index">Products</a></li>
+                                <li><a href="<?= BASE_URL ?>user/index">Users</a></li>
+                                <li><a href="#">Manual Order</a></li>
+                                <li><a href="#">Checks</a></li>
+                            <?php } elseif ($_SESSION['type'] == 0) { ?>
+                                <li><a href="#">My Orders</a></li>
+                            <?php } ?>
                         </ul>
-                    </div>
+                        <div>
+                            <ul class="nav navbar-nav navbar-right">
+                                <?php if (!empty($_SESSION["image"])) { ?>
+                                    <li><img width="50px" height="50px" src="<?= BASE_URL ?>uploads/users/<?= $_SESSION['image'] ?>" /></li>
+                                <?php } else { ?>
+                                    <li><img width="50px" height="50px" src="<?= BASE_URL ?>statis/img/user_image.png" /></li>
+                                <?php } ?>
+                                <li style="color:white"><a><i class="glyphicon glyphicon-user"></i> <b><?= $_SESSION['first_name'] ?></b></a></li>
+                                <li><a href="<?= BASE_URL ?>login/logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    <?php } ?>
                 </nav>
             </header>
