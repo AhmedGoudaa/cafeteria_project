@@ -8,7 +8,7 @@ class UserpanelController{
             $product = new ProductModel();
 
             $product->data = 'all';
-            $product->condition = 'no';
+            $product->condition = array('availability'=>"'1'");
             $result = $product->select();
             $num_results = mysqli_num_rows($result);
             $products = array();
@@ -23,12 +23,24 @@ class UserpanelController{
             $room->condition = 'no';
             $resultRom = $room->select();
             $num_rom_results = mysqli_num_rows($resultRom);
-            $room = array();
+            $rooms = array();
             for ($i = 0; $i < $num_rom_results; $i++) {
                 $rooms[] = mysqli_fetch_row($resultRom);
             }
 
-            $row = array( $rooms,$products); 
+
+            $user = new UserModel();
+            $user->data = 'all';
+            $user->condition = 'no';
+            $resultUser = $user->select();
+            $num_user_results = mysqli_num_rows($resultUser);
+            $users = array();
+            for ($i = 0; $i < $num_user_results; $i++) {
+                $users[] = mysqli_fetch_row($resultUser);
+            }
+
+
+            $row = array( $rooms,$products,$users); 
             $template = new Template();
             //$template->render("userpanel/index.php",$products);
             $template->render("userpanel/index.php",$row);
@@ -56,14 +68,16 @@ class UserpanelController{
             // $order->data=array('user_id' => "'$userId'", 'room_id' => "'$roomId'", 'order_date' => "'$orderDate'",'notes' => "'$notes'", 'status' => "'$status'", 'total_price' => "'$totalPrice'");
 
              $order->insert();
+
+             //var_dump($order);
     
             
 
 ///////////////////////////////////////////order details//////////////////////////////////////////////
             $orderid = new OrderModel();
 
-            $orderid->data = array('id');;
-            $orderid->condition = array('order_date'=>"'$orderDate'");;
+            $orderid->data = array('id');
+            $orderid->condition = array('order_date'=>"'$orderDate'");
             $orderid_result = $orderid->select();
 
             
@@ -76,11 +90,14 @@ class UserpanelController{
             //print_r($order_id);
             //echo $order_id[0][0];
 
+            //echo $orderDate;
+
             $orders= array();
 
             $orderDetails = json_decode($_REQUEST["order_details"], true); 
             //var_dump($orderDetails); 
             foreach ($orderDetails as $prod_id => $prod_quantity) {
+
                 array_push($orders, "(".$order_id[0][0].",".$prod_id.",".$prod_quantity.") ");
             }
 
@@ -99,7 +116,7 @@ class UserpanelController{
             $product = new ProductModel();
 
             $product->data = 'all';
-            $product->condition = 'no';
+            $product->condition = array('availability'=>"'1'");
             $result = $product->select();
 
             
@@ -116,12 +133,24 @@ class UserpanelController{
             $room->condition = 'no';
             $resultRom = $room->select();
             $num_rom_results = mysqli_num_rows($resultRom);
-            $room = array();
+            $rooms = array();
             for ($i = 0; $i < $num_rom_results; $i++) {
                 $rooms[] = mysqli_fetch_row($resultRom);
             }
 
-            $row = array( $rooms,$products); 
+            $user = new UserModel();
+            $user->data = 'all';
+            $user->condition = 'no';
+            $resultUser = $user->select();
+            $num_user_results = mysqli_num_rows($resultUser);
+            $users = array();
+            for ($i = 0; $i < $num_user_results; $i++) {
+                $users[] = mysqli_fetch_row($resultUser);
+            }
+
+
+
+            $row = array( $rooms,$products,$users); 
 
             $template = new Template();
             $template->render("userpanel/index.php",$row);
@@ -129,7 +158,37 @@ class UserpanelController{
         }     
 
 	}
+
+
+
+    function update(){
+
+            $product = new ProductModel();
+
+            $product->data = 'all';
+            $product->condition = array('availability'=>"'1'");
+            $result = $product->select();
+            $num_results = mysqli_num_rows($result);
+            $products = array();
+            for ($i = 0; $i < $num_results; $i++) {
+                $products[] = mysqli_fetch_row($result);
+            }
+
+
+
+            $row = array($products); 
+
+            echo json_encode(array("status" => "success", "insertData" => $row[0]));
+
+
+    }
+
+
+
+
+
 }
 
 ?>
+
 
