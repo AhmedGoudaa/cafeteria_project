@@ -6,7 +6,7 @@ class Connection {
     public $conn;
 
     private function __construct() {
-        @$this->conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT);
+        @$this->conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
     }
 
     public static function startConnection() {
