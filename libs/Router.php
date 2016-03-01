@@ -8,7 +8,7 @@ class Router {
     protected $controller = self::DEFAULT_CONTROLLER;
     protected $action = self::DEFAULT_ACTION;
     protected $params = array();
-    protected $basePath = "project/";
+    protected $basePath = "cafeteria_project/";
     protected $path = "";
 
     public function __construct(array $options = array()) {
@@ -88,11 +88,12 @@ class Router {
     public function run() {
 
 //        if (!strpos($this->path, 'static')) {
-//            if (empty($_SESSION)) {
-//                call_user_func_array(array(new LoginController(), "index"), array());
-//            } else {
-        call_user_func_array(array(new $this->controller, $this->action), $this->params);
-//            }
+        if (empty($_SESSION)) {
+            call_user_func_array(array(new LoginController(), "index"), array());
+//            header("Location: " . BASE_URL . "login/index");
+        } else {
+            call_user_func_array(array(new $this->controller, $this->action), $this->params);
+        }
 //        }
     }
 
