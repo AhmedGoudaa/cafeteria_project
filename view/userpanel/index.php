@@ -10,7 +10,7 @@
     		<div class="row">
 
     			<!--  data entry form -->
-				<div  class="col-lg-4 col-md-4 col-lg-4 col-xs-4">
+				<div  class="col-lg-5 col-md-5 col-lg-5 col-xs-5">
 
 					<div class="row">
 						<label >Selected Products:</label>
@@ -77,14 +77,35 @@
 
 				</div>
 
+				<!--  search field  -->
+				<div  class="col-lg-2 col-md-2 col-lg-2 col-xs-2">
 
-				<div  class="col-lg-1 col-md-1 col-lg-1 col-xs-1"></div>
+						<div id="">
+
+							<!-- Main Title -->
+							<div class="icon"></div>
+							<h4 class="text-danger"><span class="glyphicon glyphicon-search"></span> Search Products</h4>
+							
+
+							<!-- Main Input -->
+							<input type="text" id="search" >
+
+							<!-- Show Results -->
+							<h4 id="results-text">Showing results for: <b id="search-string"></b></h4>
+							
+
+
+						</div>
+
+
+
+				</div>
 
 
 
 				<!-- products list  -->
-				<div class="col-sm-7 col-md-7 col-lg-7 col-xs-7">
-
+				<div class="col-sm-5 col-md-5 col-lg-5 col-xs-5">
+					<div class="row">
 							<div id="userSelect" class="">
 						 		<label for="idUser">Add To User:</label>
 						 		<select name="idUser" class="form-control" id="idUser">
@@ -99,8 +120,11 @@
     							?>
 								</select>
 						 	</div>
+					</div>
 
 						 	<hr/>
+
+					<div class="row">	 	
 						 	<div class='col-sm-12 col-md-12 col-lg-12 col-xs-12' id="mostRequested" >
 						 		<div><label >Most Requested Products:</label></div>
 						 	<?php
@@ -123,7 +147,7 @@
     						?>
 		
 						 	</div>
-						 	
+					</div>	 	
 						 	<hr/>
 
 					<div class='col-sm-12 col-md-12 col-lg-12 col-xs-12'>
@@ -158,6 +182,58 @@
 
 <script>
     $(document).ready(function () {
+
+
+/////////////////////////////////////search field///////////////////////////////
+	// Icon Click Focus
+	$('div.icon').click(function(){
+		$('input#search').focus();
+	});
+
+	$('input#search').on("change",search); 
+	// Live Search
+	// On Search Submit and Get Results
+	function search() {
+		var query_value = $('input#search').val();
+		$('b#search-string').text(query_value);
+		if(query_value !== ''){
+			$.ajax({
+				type: "POST",
+				dataType: "text", 
+				url: "<?= BASE_URL ?>userpanel/search",
+				data: { query: query_value },
+				cache: false,
+				success: function(response){
+					var x= JSON.stringify(response);
+					 var data=JSON.parse(x);
+					 data=JSON.parse(data);
+					if (data.insertData){
+
+						$(".mainList").remove();
+				        for(i = 0; i < data.insertData.length; i++){
+				           
+				            
+			        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 mainList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name=\""+data.insertData[i][1]+"\" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>static/img/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
+				        
+				        $("#productsList").before(pros_div);
+				        }  
+
+				    }  
+				}
+
+
+			});
+		}return false;    
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
 
 
     	<?php
@@ -203,14 +279,14 @@
             							//console.log(data.insertData[0][1]);
             							//alert(data.insertData);
 
-            							
+            							console.log(data.insertData);
             				
 						    if (data.insertData){
 						    	$(".mainList").remove();
 						        for(i = 0; i < data.insertData.length; i++){
 						           
 						            
-					        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 mainList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name="+data.insertData[i][1] +" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>static/img/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
+					        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 mainList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name=\""+data.insertData[i][1]+"\" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>static/img/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
 						        
 						        $("#productsList").before(pros_div);
 
@@ -255,6 +331,7 @@
     		var pro_id=$(this).attr("prod_id");
     			pro_id=parseInt(pro_id);
     		var pro_nam=$(this).attr("prod_name");
+    		alert(pro_nam);
 
     		var pro_pric=$(this).attr("prod_price");
     			pro_pric=parseFloat(pro_pric);
