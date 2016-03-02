@@ -4,8 +4,8 @@ class UserpanelController{
 
 	function index(){
 
-        //$usrId= $_SESSION['user_id'];
-        $usrId= 2;
+        $usrId= $_SESSION['user_id'];
+        //$usrId= 2;
 
 		if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $product = new ProductModel();
