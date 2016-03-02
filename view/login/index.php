@@ -51,7 +51,7 @@
                     if (data.status == "success" && data.type == 1) {
                         window.location = "<?= BASE_URL ?>product/index";
                     } else if (data.status == "success" && data.type == 0) {
-                        window.location = "<?= BASE_URL ?>user/index";
+                        window.location = "<?= BASE_URL ?>userpanel/index";
                     } else if (data.status == "failed") {
                         $("#loginError").html("Error in Username or Password !!")
 //                        alert("Error in Login .. !!");
