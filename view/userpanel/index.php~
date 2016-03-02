@@ -1,8 +1,8 @@
 	<?php
 		$type = $_SESSION['type'];
 		$usrId= $_SESSION['user_id'];
-		//$type=0; // normal user
-		//$usrId=3;
+		//echo $usrId;
+
 
 	?>
 
@@ -80,7 +80,62 @@
 				<!--  search field  -->
 				<div  class="col-lg-2 col-md-2 col-lg-2 col-xs-2">
 
-						<div id="">
+
+
+
+
+				</div>
+
+
+
+				<!-- products list  -->
+				<div class="col-sm-5 col-md-5 col-lg-5 col-xs-5">
+					
+							<div id="userSelect" class="">
+						 		<label for="idUser">Add To User:</label>
+						 		<select name="idUser" class="form-control" id="idUser">
+
+						 		<?php  
+						   			 if (!empty($data[2])){
+						        			for($i = 0; $i < count($data[2]); $i++){ ?>
+						           
+						            	<option  value="<?=$data[2][$i][0]?>"><?=$data[2][$i][1].' ' ?><?=$data[2][$i][2] ?></option>						           
+						       <?php }
+						   		 }    
+    							?>
+								</select>
+						 	</div>
+						 	<hr/>
+
+						 	
+						 	<div class='col-sm-12 col-md-12 col-lg-12 col-xs-12' id="mostRequested" >
+						 		<div><label >Most Requested Products:</label></div>
+						 	<?php
+						    if (!empty($data[3])){
+						        for($i = 0; $i < count($data[3]); $i++){?>
+						           
+						            
+						        	<div id="" class='col-sm-4 col-md-4 col-lg-4 col-xs-4' >
+						        		<button ><img width='100%' height='80px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[1][$i][4] ?>"/></button>
+						        		<span style="color:blue; display:block;"><?=$data[1][$i][1].' ' ?><span style="color:red;font-weight:bold ;"><?= $data[1][$i][2].' L.E' ?></span> </span>
+						        		
+						        	</div>	
+						        						           
+						           
+						       <?php }
+
+						    }    
+						     
+						    
+    						?>
+		
+						 	</div>
+					 	
+						 	<hr/>
+
+
+
+						 <div id="">
 
 							<!-- Main Title -->
 							<div class="icon"></div>
@@ -96,59 +151,6 @@
 
 
 						</div>
-
-
-
-				</div>
-
-
-
-				<!-- products list  -->
-				<div class="col-sm-5 col-md-5 col-lg-5 col-xs-5">
-					<div class="row">
-							<div id="userSelect" class="">
-						 		<label for="idUser">Add To User:</label>
-						 		<select name="idUser" class="form-control" id="idUser">
-
-						 		<?php  
-						   			 if (!empty($data[2])){
-						        			for($i = 0; $i < count($data[2]); $i++){ ?>
-						           
-						            	<option  value="<?=$data[2][$i][0]?>"><?=$data[2][$i][1].' ' ?><?=$data[2][$i][2] ?></option>						           
-						       <?php }
-						   		 }    
-    							?>
-								</select>
-						 	</div>
-					</div>
-
-						 	<hr/>
-
-					<div class="row">	 	
-						 	<div class='col-sm-12 col-md-12 col-lg-12 col-xs-12' id="mostRequested" >
-						 		<div><label >Most Requested Products:</label></div>
-						 	<?php
-						    if (!empty($data[3])){
-						        for($i = 0; $i < count($data[3]); $i++){?>
-						           
-						            
-						        	<div id="" class='col-sm-3 col-md-3 col-lg-3 col-xs-3' >
-						        		<button ><img width='100%' height='80px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[1][$i][4] ?>"/></button>
-						        		<span style="color:blue; display:block;"><?=$data[1][$i][1].' ' ?><span style="color:red;font-weight:bold ;"><?= $data[1][$i][2].' L.E' ?></span> </span>
-						        		
-						        	</div>	
-						        	<br/>					           
-						           
-						       <?php }
-
-						    }    
-						     
-						    
-    						?>
-		
-						 	</div>
-					</div>	 	
-						 	<hr/>
 
 					<div class='col-sm-12 col-md-12 col-lg-12 col-xs-12'>
 						<?php
@@ -190,9 +192,15 @@
 		$('input#search').focus();
 	});
 
-	$('input#search').on("change",search); 
-	// Live Search
-	// On Search Submit and Get Results
+	//$("#search").delegate('#main',"change", search);
+	$('input#search').on("change keyup paste mouseup",search);
+	// var e = $.Event( "keypress", { which: 13 } );
+	// $('input#search').trigger(e); 
+
+	//$('input#search').change(search); 
+
+
+	////// Live Search
 	function search() {
 		var query_value = $('input#search').val();
 		$('b#search-string').text(query_value);
@@ -209,11 +217,12 @@
 					 data=JSON.parse(data);
 					if (data.insertData){
 
-						$(".mainList").remove();
+						$(".mainList").hide();
+						$(".searchList").remove();
 				        for(i = 0; i < data.insertData.length; i++){
 				           
 				            
-			        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 mainList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name=\""+data.insertData[i][1]+"\" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>static/img/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
+			        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 searchList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name=\""+data.insertData[i][1]+"\" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>uploads/products/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
 				        
 				        $("#productsList").before(pros_div);
 				        }  
@@ -223,7 +232,11 @@
 
 
 			});
-		}return false;    
+		}else{
+			$(".searchList").hide();
+			$(".mainList").show();
+
+		}    
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -237,18 +250,22 @@
 
 
     	<?php
-    		if($type===1){
-    				echo '$("#userSelect").show();';
+    		if($type==1){ ?>
+    				$("#userSelect").show();
+				var uID= $("#idUser").val();
 
-    			    echo '$("#user_id").val($("#idUser").val());
+    			    $("#user_id").val(uID);
 
 				    	$("#idUser").on("change", function() {
-				  			 $("#user_id").val(this.val()); 
-						});';
+							var va =this.value;
+				  			 $("#user_id").val(va); 
+						});
 
-					echo '$("#mostRequested").hide();';
+					$("#mostRequested").hide();
+		<?php
     		}else
     		{
+			
     				echo '$("#mostRequested").show();';
     			    echo '$("#user_id").val('.$usrId.');';
 
@@ -279,7 +296,7 @@
             							//console.log(data.insertData[0][1]);
             							//alert(data.insertData);
 
-            							console.log(data.insertData);
+            							//console.log(data.insertData);
             				
 						    if (data.insertData){
 						    	$(".mainList").remove();
@@ -331,7 +348,7 @@
     		var pro_id=$(this).attr("prod_id");
     			pro_id=parseInt(pro_id);
     		var pro_nam=$(this).attr("prod_name");
-    		alert(pro_nam);
+    		//alert(pro_nam);
 
     		var pro_pric=$(this).attr("prod_price");
     			pro_pric=parseFloat(pro_pric);
