@@ -165,6 +165,7 @@ class UserpanelController{
 
 
             $mostR = new OrderdetailsModel();
+            $mostR ->user_ID = $usrId;
             $result = $mostR->selectJoin();
             $num_most_results = mysqli_num_rows($result);
             $mostReq = array();
@@ -201,6 +202,64 @@ class UserpanelController{
             $row = array($products); 
 
             echo json_encode(array("status" => "success", "insertData" => $row[0]));
+
+
+    }
+
+
+
+
+    function search(){
+
+
+
+
+
+            // Get Search
+            $search_string = preg_replace("/[^A-Za-z0-9]/", " ", $_POST['query']);
+
+            //$search_string = $_POST['query'];
+            $search = new ProductModel();
+            $search->searchString = $search_string ;
+
+            $search_string= $search -> check();
+
+
+
+            //printf($search_string);
+
+            // Check Length More Than One Character
+            if (strlen($search_string) >= 1 && $search_string !== ' ') {
+
+
+                $search_result= $search -> selectSearch();
+
+                
+
+                $num_results = mysqli_num_rows($search_result);
+                $result_array = array();
+
+                for ($i = 0; $i < $num_results; $i++) {
+                    $result_array[] = mysqli_fetch_row($search_result);
+                }
+
+
+
+
+
+
+                // Check If We Have Results
+                if (isset($result_array)) {
+                                $row = array($result_array); 
+                                echo json_encode(array("status" => "success", "insertData" => $row[0]));
+                    
+                }else{
+
+                    // Format No Results Output
+
+                }
+            }
+
 
 
     }
