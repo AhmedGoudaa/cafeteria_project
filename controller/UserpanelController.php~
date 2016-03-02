@@ -165,6 +165,7 @@ class UserpanelController{
 
 
             $mostR = new OrderdetailsModel();
+            $mostR ->user_ID = $usrId;
             $result = $mostR->selectJoin();
             $num_most_results = mysqli_num_rows($result);
             $mostReq = array();
