@@ -1,8 +1,8 @@
 	<?php
-		//$type = $_SESSION['type'];
-		//$usrId= $_SESSION['user_id'];
-		$type=0; // normal user
-		$usrId=3;
+		$type = $_SESSION['type'];
+		$usrId= $_SESSION['user_id'];
+		//$type=0; // normal user
+		//$usrId=3;
 
 	?>
 
