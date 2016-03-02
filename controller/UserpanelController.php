@@ -4,8 +4,8 @@ class UserpanelController{
 
 	function index(){
 
-        //$usrId= $_SESSION['user_id'];
-        $usrId= 2;
+        $usrId= $_SESSION['user_id'];
+        //$usrId= 2;
 
 		if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $product = new ProductModel();
@@ -69,6 +69,8 @@ class UserpanelController{
             $status=$_REQUEST["status"];
             $totalPrice=$_REQUEST["t_price"];
 
+            $notes= preg_replace("/[^A-Za-z0-9]/", " ", $notes);
+
             
 
             $order = new OrderModel();
@@ -78,6 +80,9 @@ class UserpanelController{
             $order->notes=$notes;
             $order->status=$status;
             $order->total_price= $totalPrice;
+
+            
+            $order->check();
 
             // $order->data=array('user_id' => "'$userId'", 'room_id' => "'$roomId'", 'order_date' => "'$orderDate'",'notes' => "'$notes'", 'status' => "'$status'", 'total_price' => "'$totalPrice'");
 

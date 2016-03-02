@@ -1,8 +1,8 @@
 	<?php
-		//$type = $_SESSION['type'];
-		//$usrId= $_SESSION['user_id'];
-		$type=0; // normal user
-		$usrId=3;
+		$type = $_SESSION['type'];
+		$usrId= $_SESSION['user_id'];
+		//echo $usrId;
+
 
 	?>
 
@@ -222,7 +222,7 @@
 				        for(i = 0; i < data.insertData.length; i++){
 				           
 				            
-			        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 searchList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name=\""+data.insertData[i][1]+"\" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>static/img/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
+			        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 searchList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name=\""+data.insertData[i][1]+"\" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>uploads/products/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
 				        
 				        $("#productsList").before(pros_div);
 				        }  
@@ -250,18 +250,22 @@
 
 
     	<?php
-    		if($type===1){
-    				echo '$("#userSelect").show();';
+    		if($type==1){ ?>
+    				$("#userSelect").show();
+				var uID= $("#idUser").val();
 
-    			    echo '$("#user_id").val($("#idUser").val());
+    			    $("#user_id").val(uID);
 
 				    	$("#idUser").on("change", function() {
-				  			 $("#user_id").val(this.val()); 
-						});';
+							var va =this.value;
+				  			 $("#user_id").val(va); 
+						});
 
-					echo '$("#mostRequested").hide();';
+					$("#mostRequested").hide();
+		<?php
     		}else
     		{
+			
     				echo '$("#mostRequested").show();';
     			    echo '$("#user_id").val('.$usrId.');';
 
@@ -299,7 +303,7 @@
 						        for(i = 0; i < data.insertData.length; i++){
 						           
 						            
-					        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 mainList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name=\""+data.insertData[i][1]+"\" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>static/img/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
+					        	var pros_div= "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 mainList' > <button id='addProduct' style='width:100%' prod_id="+data.insertData[i][0]+" prod_name=\""+data.insertData[i][1]+"\" prod_price="+data.insertData[i][2] +"><img width='100%' height='100px'  src='<?= BASE_URL ?>uploads/products/"+data.insertData[i][4]+"'/></button> <span style='color:blue; font-size:20px; display:block;'>"+data.insertData[i][1]+" "+"<span style='color:red;font-weight:bold ; font-size:25px;'>"+data.insertData[i][2]+" L.E</span></span> </div>"	;					           
 						        
 						        $("#productsList").before(pros_div);
 
@@ -318,7 +322,7 @@
 		            	//alert(response);
 		                // pass existing options
 		   				}).then(function() {           // on completion, restart
-		       				setTimeout(update,300000);  // function refers to itself
+		       				setTimeout(update,5000);  // function refers to itself
 		    				});
 			})(); 
 

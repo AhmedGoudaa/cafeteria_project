@@ -2,6 +2,7 @@
 define("DB_NAME","cafeteria");
 define("DB_USER","root");
 define("DB_PASSWORD","123");
+
 define("DB_SERVER","localhost");
 define("APP_PATH",__DIR__);
 define("CSS_PATH",__DIR__."/static/css/bootstrap/css/bootstrap.min.css");

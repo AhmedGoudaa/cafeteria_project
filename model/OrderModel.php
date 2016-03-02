@@ -18,5 +18,16 @@ class OrderModel extends Database {
         $this->table = "`order`";
     }
     
+
+    public function check(){
+
+       global $conn;
+
+       $this->notes = $conn->real_escape_string($this->notes);
+
+       //return  $this->notes;
+
+
+     }
     
 }
