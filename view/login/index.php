@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </form>
-                <button id="forget_password">Forget Your Password?</button>
+                <a id="forget_password" href="<?= BASE_URL ?>login/sendEmail">Forget Your Password?</a>
                 <span class="errorMsg" id="forgetPassSpan"></span>
             </div>
         </div>
