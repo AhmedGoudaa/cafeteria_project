@@ -143,6 +143,7 @@ class LoginController {
                         ->setHtml("<a href='" . BASE_URL . "login/resetPassword'>Reset your Password</a>");
                 try {
                     $sendgrid->send($email);
+                    $_SESSION["email"] = $_POST['email'];
                     header("Location: http://" . BASE_URL . "login/confirmEmail");
                 } catch (\SendGrid\Exception $e) {
                     echo $e->getCode();
@@ -165,6 +166,49 @@ class LoginController {
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $template = new Template();
             $template->render("login/resetPassword.php");
+        } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $valid = false;
+            $error = array();
+
+            $email = $_SESSION["email"];
+
+            if (!empty($_POST["resetPassword"]) || !empty($_POST["resetCoPassword"])) {
+                if (empty($_POST["resetPassword"])) {
+                    $error['r_u_passError'] = "* Password is required";
+                } elseif (empty($_POST["resetCoPassword"])) {
+                    $error['r_u_copassError'] = "* Confirm Password is required";
+                } elseif ($_POST["e_user_password"] != $_POST["e_user_co_password"]) {
+                    $error['r_u_copassError'] = "* Password isn't matched";
+                } else {
+                    $u_pass = md5($_POST["resetPassword"]);
+                }
+            }
+
+            $errors = array_filter($error);
+
+            if (empty($errors)) {
+                $valid = true;
+            }
+
+            if ($valid) {
+                $user = new UserModel();
+
+                if (!empty($u_pass)) {
+                    $user->data['password'] = "'$u_pass'";
+                }
+
+                $user->condition = array("email" => $email);
+
+                if (!$user->update()) {
+                    echo json_encode(array("status" => "errorPassword"));
+                } else {
+                    header("Location: http://" . BASE_URL . "login/resetDone");
+                }
+                exit();
+            } else {
+                echo json_encode(array("status" => "failed", "error" => $error));
+            }
+            exit();
         }
     }
 

@@ -88,7 +88,7 @@ class Router {
     public function run() {
 
 //        if (!strpos($this->path, 'static')) {
-        if (empty($_SESSION) && !in_array($this->action, array("forgetPassword", "sendEmail", "resetPassword", "confirmEmail"))) {
+        if (empty($_SESSION["user_id"]) && !in_array($this->action, array("forgetPassword", "sendEmail", "resetPassword", "confirmEmail"))) {
             call_user_func_array(array(new LoginController(), "index"), array());
 //            header("Location: " . BASE_URL . "login/index");
         } else {

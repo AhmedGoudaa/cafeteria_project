@@ -13,10 +13,12 @@
                     <label for="id_new_password1">New password:</label>
                     <input class="form-control" type="password" id="resetPassword" name="resetPassword"
                            placeholder="Enter New Password" required/>
+                    <span class="errorMsg" id="r_u_passError"></span>
 
                     <label for="id_new_password2">Confirm password:</label>
                     <input class="form-control" type="password" id="resetCoPassword" name="resetCoPassword"
                            placeholder="Confirm Password" required/>
+                    <span class="errorMsg" id="r_u_copassError"></span>
                 </div>
                 <div class='panel-footer bg-primary' style="padding: 0px 14px;">
                     <div class="row">
@@ -35,11 +37,11 @@
         var form = $('#addUserForm')[0];
         var formData = new FormData(this);
         $(".errorMsg").html("");
-        if ($('#user_co_password').val() != $('#user_password').val()) {
+        if ($('#resetPassword').val() != $('#resetCoPassword').val()) {
             alert("Password isn't matched");
         } else {
             $.ajax({
-                url: "<?= BASE_URL ?>user/addUser",
+                url: "<?= BASE_URL ?>login/resetPassword",
                 type: 'POST',
                 enctype: "multipart/form-data",
                 data: formData,
@@ -47,28 +49,15 @@
                 contentType: false,
                 success: function (data) {
                     data = JSON.parse(data);
-                    if (data.status == "success") {
-                        var newRow = "";
-                        newRow = createRow(data.insertData);
-                        if ($("#usersTable tbody").length == 0) {
-                            newRow = "<tbody>" + newRow + "</tbody>";
-                            $("#usersTable").append(newRow);
-                        } else {
-                            $("#usersTable tbody").append(newRow);
-                        }
-
-                        $('#addUserModal').modal('hide');
-                    } else if (data.status == "failed") {
+                    if (data.status == "failed") {
                         for (var key in data.error) {
                             if (!data.error.hasOwnProperty(key))
                                 continue;
                             var errorMsg = data.error[key];
                             $("#" + key).html(errorMsg);
                         }
-                    } else if (data.status == "errorUpload") {
-                        alert("Error in  file uploading!! .. try again");
-                    } else if (data.status == "errorInsert") {
-                        alert("Error in  add user!! .. try again");
+                    } else if(data.status == "errorPassword") {
+                        alert("Error in update Password");
                     }
                 },
                 error: function (errorData) {
