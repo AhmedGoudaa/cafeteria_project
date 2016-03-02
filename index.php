@@ -7,7 +7,6 @@ set_include_path(get_include_path() . PS . CONTROLLER_DIR . PATH_SEPARATOR . MOD
 function autoload($class) {
     @include ($class . ".php");
 }
-include 'PHPMailer-master/PHPMailerAutoload.php';
 include 'sendgrid-php/sendgrid-php.php';
 
 spl_autoload_register("autoload");

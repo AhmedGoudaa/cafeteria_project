@@ -1,16 +1,11 @@
 <?php
-
 define("DB_NAME","cafeteria");
-define("DB_USER",getenv('OPENSHIFT_MYSQL_DB_USERNAME'));
-define("DB_PASSWORD",getenv('OPENSHIFT_MYSQL_DB_PASSWORD'));
-
-define("DB_SERVER",getenv('OPENSHIFT_MYSQL_DB_HOST'));
-define('DB_PORT',getenv('OPENSHIFT_MYSQL_DB_PORT')); 
-
-
-define("APP_PATH",realpath(__DIR__));
+define("DB_USER","root");
+define("DB_PASSWORD","12345");
+define("DB_SERVER","localhost");
+define("APP_PATH",__DIR__);
 define("CSS_PATH",__DIR__."/static/css/bootstrap/css/bootstrap.min.css");
-define("BASE_URL","https://blog-testphpproject.rhcloud.com/");
+define("BASE_URL","http://localhost/cafeteria_project/");
 
 define("PS",PATH_SEPARATOR);
 define("CONTROLLER_DIR",APP_PATH."/controller/");

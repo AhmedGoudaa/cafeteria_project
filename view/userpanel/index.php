@@ -1,8 +1,8 @@
 	<?php
-		//$type = $_SESSION['type'];
-		//$usrId= $_SESSION['user_id'];
-		$type=0; // normal user
-		$usrId=3;
+		$type = $_SESSION['type'];
+		$usrId= $_SESSION['user_id'];
+		//echo $usrId;
+
 
 	?>
 
@@ -250,18 +250,22 @@
 
 
     	<?php
-    		if($type===1){
-    				echo '$("#userSelect").show();';
+    		if($type==1){ ?>
+    				$("#userSelect").show();
+				var uID= $("#idUser").val();
 
-    			    echo '$("#user_id").val($("#idUser").val());
+    			    $("#user_id").val(uID);
 
 				    	$("#idUser").on("change", function() {
-				  			 $("#user_id").val(this.val()); 
-						});';
+							var va =this.value;
+				  			 $("#user_id").val(va); 
+						});
 
-					echo '$("#mostRequested").hide();';
+					$("#mostRequested").hide();
+		<?php
     		}else
     		{
+			
     				echo '$("#mostRequested").show();';
     			    echo '$("#user_id").val('.$usrId.');';
 
