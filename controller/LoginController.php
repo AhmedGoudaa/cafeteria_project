@@ -37,6 +37,7 @@ class LoginController {
             header("Location: " . BASE_URL . "login/index");
         }
     }
+
 //
 //    function forgetPassword() {
 //        include 'sendgrid-php/sendgrid-php.php';
@@ -95,7 +96,7 @@ class LoginController {
 //    }
 
     function sendEmail() {
-        
+
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $template = new Template();
             $template->render("login/sendEmail.php");
@@ -139,9 +140,10 @@ class LoginController {
                         ->setFrom('admin@gemycafe.com')
                         ->setSubject('Subject goes here')
                         ->setText('Hello World!')
-                        ->setHtml("<a href='".BASE_URL."login/resetPassword'>Reset your Password</a>");
+                        ->setHtml("<a href='" . BASE_URL . "login/resetPassword'>Reset your Password</a>");
                 try {
                     $sendgrid->send($email);
+                    header("Location: http://" . BASE_URL . "login/confirmEmail");
                 } catch (\SendGrid\Exception $e) {
                     echo $e->getCode();
                     foreach ($e->getErrors() as $er) {
@@ -149,6 +151,20 @@ class LoginController {
                     }
                 }
             }
+        }
+    }
+
+    function confirmEmail() {
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            $template = new Template();
+            $template->render("login/confirmEmail.php");
+        }
+    }
+
+    function resetPassword() {
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            $template = new Template();
+            $template->render("login/resetPassword.php");
         }
     }
 
