@@ -45,10 +45,10 @@
                         </button>
                         <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-home"></i>GemyCafe</a>
                     </div>
-                    <?php if (!empty($_SESSION)) { ?>
+                    <?php if (!empty($_SESSION['user_id'])) { ?>
                         <ul class="nav navbar-nav collapse navbar-collapse" id='my-nav'>
                             <li><a href="<?= BASE_URL ?>userpanel/index">Home</a></li>
-                            <?php if ($_SESSION['type'] == 1) { ?>
+                            <?php if (!empty($_SESSION['type']) && $_SESSION['type'] == 1) { ?>
                                 <li><a href="<?= BASE_URL ?>product/index">Products</a></li>
                                 <li><a href="<?= BASE_URL ?>user/index">Users</a></li>
                                 <li><a href="#">Manual Order</a></li>
@@ -64,8 +64,10 @@
                                 <?php } else { ?>
                                     <li><img width="50px" height="50px" src="<?= BASE_URL ?>statis/img/user_image.png" /></li>
                                 <?php } ?>
-                                <li style="color:white"><a><i class="glyphicon glyphicon-user"></i> <b><?= $_SESSION['first_name'] ?></b></a></li>
-                                <li><a href="<?= BASE_URL ?>login/logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
+                                <?php if (!empty($_SESSION['first_name'])) { ?>
+                                    <li style="color:white"><a><i class="glyphicon glyphicon-user"></i> <b><?= !empty($_SESSION['first_name']) ? $_SESSION['first_name'] : "" ?></b></a></li>
+                                    <li><a href="<?= BASE_URL ?>login/logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
+                                    <?php } ?>
                             </ul>
                         </div>
                     <?php } ?>

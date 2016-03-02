@@ -32,7 +32,6 @@
 
         $("#sendEmail").on("click", function () {
             if ($("#resetEmail").val() != "") {
-                alert($("#resetEmail").val());
                 var obj = {email: $("#resetEmail").val()}
                 $.ajax({
                     url: "<?= BASE_URL ?>login/sendEmail",
@@ -43,6 +42,10 @@
                         data = JSON.parse(data);
                         if (data.status == "fail") {
                             $('#forgetPassSpan').html('this email isn\'t exist');
+                        } else if(data.status == "abort"){
+                            alert("Error in connection");
+                        } else if(data.status == "success"){
+                            window.location = "<?= BASE_URL ?>login/confirmEmail";
                         }
                     },
                     error: function (errorData) {
@@ -52,7 +55,7 @@
                 });
                 return false;
             } else {
-                $('#forgetPassSpan').html('Enter the your registered email');
+                $('#forgetPassSpan').html('Enter your registered email');
             }
         });
     });
