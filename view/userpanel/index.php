@@ -194,12 +194,6 @@
 
 	//$("#search").delegate('#main',"change", search);
 	$('input#search').on("change keyup paste mouseup",search);
-	// var e = $.Event( "keypress", { which: 13 } );
-	// $('input#search').trigger(e); 
-
-	//$('input#search').change(search); 
-
-
 	////// Live Search
 	function search() {
 		var query_value = $('input#search').val();
@@ -313,10 +307,6 @@
 						    }    
 						     
 						    
-    					
-
-
-
        								 }                  
 		   
 		            	//alert(response);
