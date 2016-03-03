@@ -1,5 +1,3 @@
-
-
 <div class="row">
     <div class="col-sm-3 col-md-3 col-lg-3 col-xs-3"></div>
 
@@ -66,31 +64,6 @@
             });
             return false;
         });
-
-        $("#forget_password").on("click", function () {
-            if ($("#accountEmail").val() != "") {
-                alert($("#accountEmail").val());
-                var obj = {email: $("#accountEmail").val()}
-                $.ajax({
-                    url: "<?= BASE_URL ?>login/forgetPassword",
-                    method: 'POST',
-                    dataType: "text",
-                    data: obj,
-                    success: function (data) {
-                        data = JSON.parse(data);
-                        if (data.status == "fail") {
-                            $('#forgetPassSpan').html('this email isn\'t exist');
-                        }
-                    },
-                    error: function (errorData) {
-                        console.log(errorData);
-                        alert("Error in F process");
-                    },
-                });
-                return false;
-            } else {
-                $('#forgetPassSpan').html('Enter the your registered email');
-            }
-        });
     });
+
 </script>
