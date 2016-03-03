@@ -185,12 +185,12 @@
 <script>
     $(document).ready(function () {
 
-
+	var checkSearch = 0; 
 /////////////////////////////////////search field///////////////////////////////
 	// Icon Click Focus
-	$('div.icon').click(function(){
-		$('input#search').focus();
-	});
+	// $('div.icon').click(function(){
+	// 	$('input#search').focus();
+	// });
 
 	//$("#search").delegate('#main',"change", search);
 	$('input#search').on("change keyup paste mouseup",search);
@@ -211,6 +211,8 @@
 					 data=JSON.parse(data);
 					if (data.insertData){
 
+						checkSearch=1;
+
 						$(".mainList").hide();
 						$(".searchList").remove();
 				        for(i = 0; i < data.insertData.length; i++){
@@ -227,6 +229,7 @@
 
 			});
 		}else{
+			checkSearch=0;
 			$(".searchList").hide();
 			$(".mainList").show();
 
@@ -303,6 +306,10 @@
 
 
 						        }
+
+						        if(checkSearch==1){
+						        	$(".mainList").hide();
+						        }else{$(".mainList").show();}
 
 						    }    
 						     
