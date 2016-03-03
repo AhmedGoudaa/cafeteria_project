@@ -58,4 +58,44 @@ class UserModel extends Database {
         }
     }
 
+
+ 
+    public function usersTotalOrders() {
+        global $conn;
+        
+        $sql='SELECT  concat_ws(" ",user.fname,user.lname ) AS user_name ,user.id,sum(order.total_price)as total
+            FROM cafeteria.user INNER JOIN cafeteria.order ON user.id=order.user_id  WHERE order.status <>"processing"
+            GROUP BY user.id,user_name; ';
+        $res= mysqli_query($conn, $sql);
+
+       return $res;
+    }
+     public function usersTotalOrdersbyDate($from,$to) {
+        global $conn;
+        
+        $sql='SELECT  concat_ws(" ",user.fname,user.lname ) AS user_name ,user.id,sum(order.total_price)as total
+            FROM cafeteria.user INNER JOIN cafeteria.order ON user.id=order.user_id  WHERE order.status <>"processing"
+            order.order_date BETWEEN "'.$from.'" AND "'.$to.'"
+            GROUP BY user.id,user_name; ';
+        $res= mysqli_query($conn, $sql);
+
+       return $res;
+    }
+    public function getAllUsers() {
+         global $conn;
+        $sql='SELECT id,concat_ws(" ",fname, lname)as name FROM cafeteria.user ;';
+        $res= mysqli_query($conn, $sql);
+       return $res;
+        
+    }
+    public function getUserOrders($id) {
+        global $conn;
+        $sql="SELECT  concat_ws(' ',user.fname,user.lname ) AS user_name ,user.id,sum(order.total_price)as total
+            FROM cafeteria.user INNER JOIN cafeteria.order ON user.id=order.user_id  WHERE order.status <>'processing'
+            and user.id={$id}
+            GROUP BY user.id,user_name;";
+        $res= mysqli_query($conn, $sql);
+       return $res;
+    }
+
 }
