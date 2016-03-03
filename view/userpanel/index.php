@@ -322,7 +322,7 @@
 		            	//alert(response);
 		                // pass existing options
 		   				}).then(function() {           // on completion, restart
-		       				setTimeout(update,300000);  // function refers to itself
+		       				setTimeout(update,5000);  // function refers to itself
 		    				});
 			})(); 
 
