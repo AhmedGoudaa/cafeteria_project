@@ -1,40 +1,41 @@
-<div class="col-sm-5 col-md-5 col-lg-5 col-xs-5"></div>
+<div class="row">
+    <div class="col-sm-3 col-md-3 col-lg-3 col-xs-3"></div>
 
-<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+        <div class='panel panel-default'>
+            <div class='panel-heading'>
+                <h4 class='text-primary'>Enter your new password</h4>
+            </div>
+            <div id='panel-content'>
+                <form role="form" method="post" id="resetPasswordForm">
+                    <div class='panel-body'>
 
-    <div class='panel panel-default'>
-        <div class='panel-heading'>
-            <h4 class='text-primary'>Enter your new password</h4>
-        </div>
-        <div id='panel-content'>
-            <form role="form" method="post">
-                <div class='panel-body'>
+                        <label for="id_new_password1">New password:</label>
+                        <input class="form-control" type="password" id="resetPassword" name="resetPassword"
+                               placeholder="Enter New Password" required/>
+                        <span class="errorMsg" id="r_u_passError"></span>
 
-                    <label for="id_new_password1">New password:</label>
-                    <input class="form-control" type="password" id="resetPassword" name="resetPassword"
-                           placeholder="Enter New Password" required/>
-                    <span class="errorMsg" id="r_u_passError"></span>
-
-                    <label for="id_new_password2">Confirm password:</label>
-                    <input class="form-control" type="password" id="resetCoPassword" name="resetCoPassword"
-                           placeholder="Confirm Password" required/>
-                    <span class="errorMsg" id="r_u_copassError"></span>
-                </div>
-                <div class='panel-footer bg-primary' style="padding: 0px 14px;">
-                    <div class="row">
-                        <button type="submit" class="btn btn-primary col-sm-12 col-md-12 col-lg-12 col-xs-12"
-                                style="border-radius:0px">Change Password
-                        </button>
+                        <label for="id_new_password2">Confirm password:</label>
+                        <input class="form-control" type="password" id="resetCoPassword" name="resetCoPassword"
+                               placeholder="Confirm Password" required/>
+                        <span class="errorMsg" id="r_u_copassError"></span>
                     </div>
-                </div>
-            </form>
+                    <div class='panel-footer bg-primary' style="padding: 0px 14px;">
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary col-sm-12 col-md-12 col-lg-12 col-xs-12"
+                                    style="border-radius:0px">Change Password
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+    <div class="col-sm-3 col-md-3 col-lg-3 col-xs-3"></div>
 </div>
-<div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
 <script>
-    $("form#addUserForm").submit(function () {
-        var form = $('#addUserForm')[0];
+    $("form#resetPasswordForm").submit(function () {
+        var form = $('#resetPasswordForm')[0];
         var formData = new FormData(this);
         $(".errorMsg").html("");
         if ($('#resetPassword').val() != $('#resetCoPassword').val()) {
@@ -56,8 +57,10 @@
                             var errorMsg = data.error[key];
                             $("#" + key).html(errorMsg);
                         }
-                    } else if(data.status == "errorPassword") {
+                    } else if (data.status == "errorPassword") {
                         alert("Error in update Password");
+                    } else if (data.status == "success") {
+                        window.location = "<?= BASE_URL ?>login/resetDone";
                     }
                 },
                 error: function (errorData) {
