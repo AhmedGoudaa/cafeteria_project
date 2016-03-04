@@ -48,10 +48,19 @@ class Router {
 
     public function setController($controller) {
 //        try {
+        if ($controller . "/" == $this->basePath && !empty($_SESSION['user_id'])) {
+            if ($_SESSION['type'] == 1) {
+                $controller = "orders";
+            } else {
+                $controller = "userpanel";
+            }
+        }
+
         $controller = ucfirst(strtolower($controller)) . "Controller";
         if (!class_exists($controller)) {
 //            throw new InvalidArgumentException(
 //            "The action controller '$controller' has not been defined.");
+//            print_r($cc);die("--");
             $this->controller = "ErrorHandlerController";
             return $this;
         }

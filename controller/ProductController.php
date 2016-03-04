@@ -286,4 +286,20 @@ class ProductController {
         }
     }
 
+    function changeAvailability() {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $id = $_POST['product_id'];
+            $availability = $_POST['availability'];
+            $product = new ProductModel();
+            $product->condition = array("id" => $id);
+            $product->data = array("availability" => "'$availability'");
+            if ($product->update()) {
+                echo json_encode(array("status" => "success", "availability" => $availability));
+            } else {
+                echo json_encode(array("status" => "failed"));
+            }
+            exit;
+        }
+    }
+
 }

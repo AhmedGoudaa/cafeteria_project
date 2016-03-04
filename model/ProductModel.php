@@ -11,7 +11,7 @@ class ProductModel extends Database {
 
     public $searchString;
     
-    public $columns_names = array('id', 'name', 'price', 'cat_id', 'photo', 'availability');
+    public $columns_names = array('name', 'price', 'cat_id', 'photo', 'availability');
 
     public function __construct() {
         $this->table = "product";
