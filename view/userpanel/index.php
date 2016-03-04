@@ -10,7 +10,7 @@
     		<div class="row">
 
     			<!--  data entry form -->
-				<div  class="col-lg-5 col-md-5 col-lg-5 col-xs-5">
+				<div  class="col-lg-4 col-md-4 col-lg-4 col-xs-4">
 
 					<div class="row">
 						<label >Selected Products:</label>
@@ -89,7 +89,7 @@
 
 
 				<!-- products list  -->
-				<div class="col-sm-5 col-md-5 col-lg-5 col-xs-5">
+				<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
 					
 							<div id="userSelect" class="">
 						 		<label for="idUser">Add To User:</label>
@@ -115,7 +115,7 @@
 						        for($i = 0; $i < count($data[3]); $i++){?>
 						           
 						            
-						        	<div id="" class='col-sm-4 col-md-4 col-lg-4 col-xs-4' >
+						        	<div id="" class='col-sm-3 col-md-3 col-lg-3 col-xs-3' >
 						        		<button ><img width='100%' height='80px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[1][$i][4] ?>"/></button>
 						        		<span style="color:blue; display:block;"><?=$data[1][$i][1].' ' ?><span style="color:red;font-weight:bold ;"><?= $data[1][$i][2].' L.E' ?></span> </span>
 						        		
@@ -158,7 +158,7 @@
 						        for($i = 0; $i < count($data[1]); $i++){ ?>
 						           
 						            
-						        	<div class='col-sm-6 col-md-4 col-lg-4 col-xs-6 mainList'>
+						        	<div class='col-sm-5 col-md-3 col-lg-3 col-xs-5 mainList'>
 						        		<button id="addProduct" style='width:100%' prod_id="<?=$data[1][$i][0]?>" prod_name="<?=$data[1][$i][1]?>" prod_price="<?=$data[1][$i][2]?>"><img width='100%' height='100px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[1][$i][4] ?>"/></button>
 						        		<span style="color:blue; font-size:20px"><?=	$data[1][$i][1].' ' ?><span style="color:red;font-weight:bold ; font-size:25px"><?= $data[1][$i][2].'L.E' ?></span></span>
 						        		

@@ -2,8 +2,11 @@
     <head>
         <title>Cafeteria</title>
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/static/css/bootstrap/css/bootstrap.min.css" />
+       
         <script type="text/javascript" src="<?= BASE_URL ?>/static/js/jquery-min.js"></script>
         <script type="text/javascript" src="<?= BASE_URL ?>/static/css/bootstrap/js/bootstrap.min.js"></script>
+
+         <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/static/css/bootstrap/css/style.css" />
         <style>
             span.errorMsg {
                 color: red;
@@ -34,16 +37,16 @@
         </style>
     </head>
     <body>
-        <div class="container-fluid">
-            <header class="row header">
-                <nav class="navbar navbar-default " style='background-color:dodgerblue;padding-right: 20px'>
+        <div id="wrapper" class="container-fluid">
+            <header  class="row header">
+                <nav id="header" class="navbar navbar-default " style='background: url("<?= BASE_URL ?>static/img/banner2.jpg") no-repeat;padding-right: 20px'>
                     <div class="navbar-header">
                         <button class='btn navbar-toggle' data-toggle='collapse' data-target='#my-nav'>
                             <span class='icon-bar'></span>
                             <span class='icon-bar'></span>
                             <span class='icon-bar'></span>
                         </button>
-                        <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-home"></i>GemyCafe</a>
+                        <a style="//color:white;" class="navbar-brand" href="#"><i class="glyphicon glyphicon-home"></i>GemyCafe</a>
                     </div>
                     <?php if (!empty($_SESSION['user_id'])) { ?>
                         <ul class="nav navbar-nav collapse navbar-collapse" id='my-nav'>
@@ -75,3 +78,4 @@
                     <?php } ?>
                 </nav>
             </header>
+<div id="content" style='background: url("<?= BASE_URL ?>static/img/cafe2.jpg") no-repeat; '>
