@@ -3,8 +3,8 @@
 
     <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
         <div class='panel panel-default'>
-            <div class='panel-heading'>
-                <h4 class='text-primary'>Enter your new password</h4>
+            <div style="background:#3a2613;" class='panel-heading'>
+                <h4 style="color:white;" class='text-primary'>Enter your new password</h4>
             </div>
             <div id='panel-content'>
                 <form role="form" method="post" id="resetPasswordForm">
@@ -22,7 +22,7 @@
                     </div>
                     <div class='panel-footer bg-primary' style="padding: 0px 14px;">
                         <div class="row">
-                            <button type="submit" class="btn btn-primary col-sm-12 col-md-12 col-lg-12 col-xs-12"
+                            <button style="background:#3a2613;" type="submit" class="btn btn-primary col-sm-12 col-md-12 col-lg-12 col-xs-12"
                                     style="border-radius:0px">Change Password
                             </button>
                         </div>

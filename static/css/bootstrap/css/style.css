@@ -34,7 +34,8 @@ body{
 	height:150px;
 	position:absolute;
 	bottom:0;
-	left:0;
+	left:15px;
+	
 }
 
 
@@ -43,9 +44,8 @@ body{
 	
 	position:relative;
 	bottom:0;
-	left:20px;
+	left:0px;
 	color: white;
-	//opacity: 0.6;
 }
 
 
@@ -67,5 +67,5 @@ body{
 }
 
 button:hover {
-	background: rgba(239, 233, 233, 0.26);
+	opacity: 0.75;
 }

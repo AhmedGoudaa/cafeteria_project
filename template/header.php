@@ -46,7 +46,8 @@
                             <span class='icon-bar'></span>
                             <span class='icon-bar'></span>
                         </button>
-                        <a style="//color:white;" class="navbar-brand" href="#"><i class="glyphicon glyphicon-home"></i>GemyCafe</a>
+                        <a  class="navbar-brand" href="#"><img width="100px" height="60px" src="<?= BASE_URL ?>static/img/logo3.JPG" /></a>
+                        <a  class="navbar-brand" href="#"><i class="glyphicon glyphicon-home"></i>GemyCafe</a>
                     </div>
                     <?php if (!empty($_SESSION['user_id'])) { ?>
                         <ul class="nav navbar-nav collapse navbar-collapse" id='my-nav'>
@@ -67,7 +68,7 @@
                                 <?php if (!empty($_SESSION["image"])) { ?>
                                     <li><img width="50px" height="50px" src="<?= BASE_URL ?>uploads/users/<?= $_SESSION['image'] ?>" /></li>
                                 <?php } else { ?>
-                                    <li><img width="50px" height="50px" src="<?= BASE_URL ?>statis/img/user_image.png" /></li>
+                                    <li><img width="50px" height="50px" src="<?= BASE_URL ?>static/img/user_image.png" /></li>
                                 <?php } ?>
                                 <?php if (!empty($_SESSION['first_name'])) { ?>
                                     <li style="color:white"><a><i class="glyphicon glyphicon-user"></i> <b><?= !empty($_SESSION['first_name']) ? $_SESSION['first_name'] : "" ?></b></a></li>

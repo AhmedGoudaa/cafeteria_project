@@ -6,8 +6,8 @@
     <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
 
         <div class='panel panel-default'>
-            <div class='panel-heading'>
-                <h4 class='text-primary'>Reset your password</h4>
+            <div style="background:#3a2613;" class='panel-heading'>
+                <h4 style="color:white;" class='text-primary'>Reset your password</h4>
             </div>
             <div id='panel-content'>
                 <span class="errorMsg" id="loginError"></span>
@@ -18,7 +18,7 @@
                 </div>
                 <div class='panel-footer bg-primary' style="padding: 0px 14px;">
                     <div class="row">
-                        <button id="sendEmail" class="btn btn-primary col-sm-12 col-md-12 col-lg-12 col-xs-12" href="<?= BASE_URL ?>login/resetPassword">Send Email</button>
+                        <button id="sendEmail" style="background:#3a2613; color:white;" class="btn btn-primary col-sm-12 col-md-12 col-lg-12 col-xs-12" href="<?= BASE_URL ?>login/resetPassword">Send Email</button>
                         <span class="errorMsg" id="forgetPassSpan"></span>
                     </div>
                 </div>

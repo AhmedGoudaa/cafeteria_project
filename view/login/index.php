@@ -21,9 +21,9 @@
                         <p></p>
                     </div>
                     <div class='panel-footer bg-primary' style="padding: 0px 14px;">
-                        <div class="row">
-                            <button type="submit" style="background:#3a2613; color:white;" class="btn btn-primary col-sm-12 col-md-12 col-lg-12 col-xs-12"
-                                    style="border-radius:0px ">Login
+                        <div  class="row">
+                            <button  type="submit" style="background:#3a2613; color:white;" class="btn btn-primary col-sm-12 col-md-12 col-lg-12 col-xs-12"
+                                    style="border-radius:0px; ">Login
                             </button>
                         </div>
                     </div>
