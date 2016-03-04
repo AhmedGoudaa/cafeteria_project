@@ -44,17 +44,14 @@
                 method: 'POST',
                 dataType: "text",
                 data: obj,
-//                processData: false,
-//                contentType: false,
                 success: function (data) {
                     data = JSON.parse(data);
                     if (data.status == "success" && data.type == 1) {
-                        window.location = "<?= BASE_URL ?>product/index";
+                        window.location = "<?= BASE_URL ?>orders/index";
                     } else if (data.status == "success" && data.type == 0) {
                         window.location = "<?= BASE_URL ?>userpanel/index";
                     } else if (data.status == "failed") {
                         $("#loginError").html("Error in Username or Password !!")
-//                        alert("Error in Login .. !!");
                     }
                 },
                 error: function (errorData) {

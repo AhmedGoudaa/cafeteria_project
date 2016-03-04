@@ -4,7 +4,7 @@ class UserController {
 
     public function __construct() {
         if ($_SESSION['type'] == 0) {
-            header("Location: " . BASE_URL . "userpanel/index");
+            header("Location: " . BASE_URL . "errorHandler/index");
         }
     }
 
