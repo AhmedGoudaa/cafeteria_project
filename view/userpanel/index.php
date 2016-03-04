@@ -112,12 +112,13 @@
 						 		<div><label >Most Requested Products:</label></div>
 						 	<?php
 						    if (!empty($data[3])){
+						    	
 						        for($i = 0; $i < count($data[3]); $i++){?>
 						           
 						            
 						        	<div id="" class='col-sm-3 col-md-3 col-lg-3 col-xs-3' >
-						        		<button ><img width='100%' height='80px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[1][$i][4] ?>"/></button>
-						        		<span style="color:blue; display:block;"><?=$data[1][$i][1].' ' ?><span style="color:red;font-weight:bold ;"><?= $data[1][$i][2].' L.E' ?></span> </span>
+						        		<button ><img width='100%' height='80px'  src="<?= BASE_URL ?>/uploads/products/<?= $data[3][$i][3] ?>"/></button>
+						        		<span style="color:blue; display:block;"><?=$data[3][$i][2].' ' ?><span style="color:red;font-weight:bold ;"><?= $data[3][$i][4].' L.E' ?></span> </span>
 						        		
 						        	</div>	
 						        						           
