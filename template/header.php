@@ -79,4 +79,4 @@
                     <?php } ?>
                 </nav>
             </header>
-<div id="content" style='background: url("<?= BASE_URL ?>static/img/cafe2.jpg") no-repeat; '>
+<div id="content" style='background: url("<?= BASE_URL ?>static/img/cafe2.jpg") no-repeat; background-size: 80% 60%; '>
