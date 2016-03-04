@@ -49,14 +49,14 @@
                         <ul class="nav navbar-nav collapse navbar-collapse" id='my-nav'>
                             
                             <?php if (!empty($_SESSION['type']) && $_SESSION['type'] == 1) { ?>
-				<li><a href="#">Home</a></li>
+				<li><a href="<?= BASE_URL ?>orders/index">Home</a></li>
                                 <li><a href="<?= BASE_URL ?>product/index">Products</a></li>
                                 <li><a href="<?= BASE_URL ?>user/index">Users</a></li>
                                 <li><a href="<?= BASE_URL ?>userpanel/index">Manual Order</a></li>
-                                <li><a href="#">Checks</a></li>
+                                <li><a href="<?= BASE_URL ?>checks/index">Checks</a></li>
                             <?php } elseif ($_SESSION['type'] == 0) { ?>
 				<li><a href="<?= BASE_URL ?>userpanel/index">Home</a></li>
-                                <li><a href="#">My Orders</a></li>
+                                <li><a href="<?= BASE_URL ?>userorder/index">My Orders</a></li>
                             <?php } ?>
                         </ul>
                         <div>
