@@ -122,7 +122,7 @@
 
 <script>
     $(document).ready(function () {
-        $(".availBtn").on("click", function () {
+        $(document).on("click", ".availBtn", function () {
             var btn = $(this);
             if ($(this).text() == "available") {
                 var availability = 1;
