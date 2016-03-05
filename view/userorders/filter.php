@@ -12,22 +12,18 @@
         <div class="form-group">
             <div class='input-group date' id='datetimepicker6'>
                
-                <input placeholder="Date From" type="date" class="form-control"  name="datefrom"/>
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
+                
+                 <input type="Text" placeholder="Date From" id="demo1" maxlength="25" size="25"  name="datefrom" />
+        <img src="<?= BASE_URL ?>static/js/images2/cal.gif" onclick="javascript:NewCssCal('demo1')" style="cursor:pointer"/>                
             </div>
         </div>
     </div>
     <div class='col-md-5'>
         <div class="form-group">
             <div class='input-group date' id='datetimepicker7'>
-                <input   placeholder="Date To" type="date" class="form-control" name="dateto" />
-               
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span> 
-            </div>
+                <input type="Text"  placeholder="Date to" id="demo2" maxlength="25" size="25"  name="dateto"    />
+        <img src="<?= BASE_URL ?>static/js/images2/cal.gif" onclick="javascript:NewCssCal('demo2')" style="cursor:pointer"/> 
+                </div>
             
         </div>
          

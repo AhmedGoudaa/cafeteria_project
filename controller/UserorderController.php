@@ -16,13 +16,19 @@ class UserorderController{
                 $this->commanfn();
                 
                 
-            }else{
+            }elseif(isset($_POST['datefrom']) && isset($_POST['dateto'])) {
+                if (!(empty($_POST['datefrom'])) && !(empty($_POST['dateto']))) {
             $from=$_POST['datefrom']." 12:00 AM";
             $to=$_POST['dateto']." 11:59 PM";
             //echo  $from.',,,,,'.$to."<br/>";
             $from  = DATE(" Y-m-d H:i:s " , STRTOTIME($from));
             $to  = DATE(" Y-m-d H:i:s " , STRTOTIME($to));          
-            //echo $from.",,".$to;
+                $part = explode('-', $_POST['datefrom']);
+                    $from = $part[2] . '-' . $part[0] . '-' . $part[1];
+                    $parts = explode('-', $_POST['dateto']);
+                    $to = $parts[2] . '-' . $parts[0] . '-' . $parts[1];
+                    $from = $from . " 12:00 AM";
+                    $to = $to . " 11:59 PM";
              $order = new OrderModel();
 
 //           $user_id=$_SESSION["user_id"];
@@ -50,7 +56,12 @@ class UserorderController{
 
             $template = new Template();
             $template->render("userorders/filter.php", $row);
-        }
+            }  else {
+                header('location: ' . BASE_URL . 'userorder');
+            }
+            
+            
+            }
         }
     }
     public function commanfn() {

@@ -14,7 +14,11 @@
         foreach ($data['products'] as $product):
             ?>
             <tr class='info' id="<?= $product['id'] ?>">
+<<<<<<< HEAD
                 <td class="product_name"><?= $product['name'] ?></td><td class="product_price"><?= $product['price'] ?> EGP</td><td class="product_photo"><img width='150px' height='100px' src="<?= BASE_URL ?>uploads/products/<?= $product['photo'] ?>"/></td><td><button class="btn btn-default">unavailable</button>|<button class="btn btn-info fillEditProduct" data-toggle='modal' data-target='#editProductModal'><span class='glyphicon glyphicon-pencil'>Edit</span></button>|<button class="btn btn-danger deleteProduct" id="<?= $product['id'] ?>"><span class='glyphicon glyphicon-remove'>Delete</span></button></td>
+=======
+                <td class="product_name"><?= $product['name'] ?></td><td class="product_price"><?= $product['price'] ?> EGP</td><td class="product_photo"><img width='150px' height='100px' src="<?= BASE_URL ?>uploads/products/<?= $product['photo'] ?>"/></td><td><?php if ($product['availability'] == 1) { ?><button class="btn btn-warning availBtn">unavailable</button><?php } else { ?> <button class="btn btn-default availBtn">available</button> <?php } ?>|<button class="btn btn-info fillEditProduct" data-toggle='modal' data-target='#editProductModal'><span class='glyphicon glyphicon-pencil'>Edit</span></button>|<button class="btn btn-danger deleteProduct" id="<?= $product['id'] ?>"><span class='glyphicon glyphicon-remove'>Delete</span></button></td>
+>>>>>>> 449837dcd592cd5f3c6413ea3cac809ea9d4af5f
             </tr>
             <?php
         endforeach;
@@ -122,6 +126,51 @@
 
 <script>
     $(document).ready(function () {
+<<<<<<< HEAD
+=======
+        $(document).on("click", ".availBtn", function () {
+            var btn = $(this);
+            if ($(this).text() == "available") {
+                var availability = 1;
+            } else if ($(this).text() == "unavailable") {
+                var availability = 0;
+            } else {
+                alert("Error in value, Try again");
+            }
+            if (typeof availability !== 'undefined') {
+                var obj = {
+                    product_id: $(this).parent().parent().attr("id"),
+                    availability: availability
+                }
+                $.ajax({
+                    url: "<?= BASE_URL ?>product/changeAvailability",
+                    method: "post",
+                    dataType: "json",
+                    data: obj,
+                    success: function (data) {
+                        if (data.status == "success") {
+                            if (data.availability == 1) {
+                                $(btn).removeClass("btn-default");
+                                $(btn).addClass("btn-warning");
+                                $(btn).text("unavailable");
+                            } else {
+                                $(btn).removeClass("btn-warning");
+                                $(btn).addClass("btn-default");
+                                $(btn).text("available");
+                            }
+                        } else {
+                            alert("Error in Change Availability");
+                        }
+                    },
+                    error: function (errorData) {
+                        alert("Error in availability process");
+                    },
+                });
+            } else {
+                alert("Error ..!! try again");
+            }
+        });
+>>>>>>> 449837dcd592cd5f3c6413ea3cac809ea9d4af5f
 
         $('.btn-file #product_photo').change(function () {
             $(".btn-file ~ #filePath").text("");
@@ -163,7 +212,11 @@
 
 //////////////Add Product//////////////////
         function createRow(obj) {
+<<<<<<< HEAD
             return "<tr class='info' id=" + obj['id'] + "><td class='product_name'>" + obj["name"] + "</td><td class='product_price'>" + obj["price"] + " EGP</td><td class='product_photo'><img width='150px' height='100px' src='<?= BASE_URL ?>uploads/products/" + obj["photo"] + "'/></td><td><button class='btn btn-default'>unavailable</button>|<button class='btn btn-info fillEditProduct' data-toggle='modal' data-target='#editProductModal'><span class='glyphicon glyphicon-pencil'>Edit</span></button>|<button class='btn btn-danger deleteProduct' id=" + obj['id'] + "><span class='glyphicon glyphicon-remove'>Delete</span></button></td></tr>";
+=======
+            return "<tr class='info' id=" + obj['id'] + "><td class='product_name'>" + obj["name"] + "</td><td class='product_price'>" + obj["price"] + " EGP</td><td class='product_photo'><img width='150px' height='100px' src='<?= BASE_URL ?>uploads/products/" + obj["photo"] + "'/></td><td><button class='btn btn-warning availBtn'>unavailable</button>|<button class='btn btn-info fillEditProduct' data-toggle='modal' data-target='#editProductModal'><span class='glyphicon glyphicon-pencil'>Edit</span></button>|<button class='btn btn-danger deleteProduct' id=" + obj['id'] + "><span class='glyphicon glyphicon-remove'>Delete</span></button></td></tr>";
+>>>>>>> 449837dcd592cd5f3c6413ea3cac809ea9d4af5f
         }
 
         $("form#addProductForm").submit(function () {

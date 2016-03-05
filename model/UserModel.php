@@ -59,12 +59,11 @@ class UserModel extends Database {
     }
 
 
- 
     public function usersTotalOrders() {
         global $conn;
         
-        $sql='SELECT  concat_ws(" ",user.fname,user.lname ) AS user_name ,user.id,sum(order.total_price)as total
-            FROM cafeteria.user INNER JOIN cafeteria.order ON user.id=order.user_id  WHERE order.status <>"processing"
+        $sql='  SELECT  concat_ws(" ",user.fname,user.lname ) AS user_name ,user.id,sum(order.total_price)as total
+            FROM cafeteria.user INNER JOIN cafeteria.order on cafeteria.user.id=cafeteria.order.user_id  WHERE cafeteria.order.status <>"processing"
             GROUP BY user.id,user_name; ';
         $res= mysqli_query($conn, $sql);
 
@@ -74,9 +73,8 @@ class UserModel extends Database {
         global $conn;
         
         $sql='SELECT  concat_ws(" ",user.fname,user.lname ) AS user_name ,user.id,sum(order.total_price)as total
-            FROM cafeteria.user INNER JOIN cafeteria.order ON user.id=order.user_id  WHERE order.status <>"processing"
-            order.order_date BETWEEN "'.$from.'" AND "'.$to.'"
-            GROUP BY user.id,user_name; ';
+            FROM cafeteria.user INNER JOIN cafeteria.order ON cafeteria.user.id=cafeteria.order.user_id  WHERE cafeteria.order.status <>"processing" AND
+            cafeteria.order.order_date BETWEEN "'.$from.'" AND "'.$to.'" GROUP BY user.id; ';
         $res= mysqli_query($conn, $sql);
 
        return $res;
@@ -90,12 +88,13 @@ class UserModel extends Database {
     }
     public function getUserOrders($id) {
         global $conn;
-        $sql="SELECT  concat_ws(' ',user.fname,user.lname ) AS user_name ,user.id,sum(order.total_price)as total
-            FROM cafeteria.user INNER JOIN cafeteria.order ON user.id=order.user_id  WHERE order.status <>'processing'
-            and user.id={$id}
-            GROUP BY user.id,user_name;";
+        $sql="  SELECT  concat_ws(' ',user.fname,user.lname ) AS user_name ,user.id,sum(order.total_price)as total
+            FROM cafeteria.user INNER JOIN cafeteria.order ON cafeteria.user.id=cafeteria.order.user_id  WHERE cafeteria.order.status <>'processing'
+            and cafeteria.user.id={$id} GROUP BY cafeteria.user.id;";
         $res= mysqli_query($conn, $sql);
        return $res;
+       
+     
     }
 
 }
