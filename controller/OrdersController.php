@@ -1,6 +1,13 @@
 <?php
 
 class OrdersController{
+    
+    public function __construct() {
+        if ($_SESSION['type'] == 0) {
+            header("Location: " . BASE_URL . "errorHandler/index");
+        }
+    }
+    
     public function index() {
         
         if ($_SERVER['REQUEST_METHOD'] == "GET") {

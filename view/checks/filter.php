@@ -1,5 +1,5 @@
 <h1><b>Checks</b> </h1>
-<form method="POST" action="<?= BASE_URL ?>test">  
+<form method="POST" action="<?= BASE_URL ?>checks">  
 <div class="container">
     
 
@@ -15,8 +15,8 @@
     <div class='col-md-5'>
         <div class="form-group">
             <div class='input-group date' id='datetimepicker7'>
-                <input type="Text"  placeholder="Date to" id="demo1" maxlength="25" size="25"  name="dateto"    />
-        <img src="<?= BASE_URL ?>static/js/images2/cal.gif" onclick="javascript:NewCssCal('demo1')" style="cursor:pointer"/>       
+                <input type="Text"  placeholder="Date to" id="demo2" maxlength="25" size="25"  name="dateto"    />
+        <img src="<?= BASE_URL ?>static/js/images2/cal.gif" onclick="javascript:NewCssCal('demo2')" style="cursor:pointer"/>       
             </div>
             
         </div>

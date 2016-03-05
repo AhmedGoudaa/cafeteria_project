@@ -48,34 +48,7 @@ class LoginController {
                 echo json_encode(array("status" => "fail"));
                 exit();
             } else {
-//                $mail = new PHPMailer();
-//                $mail->SMTPDebug = 3;
-//                $mail->Timeout = 500000;
-//                $mail->isSMTP();                                      // Set mailer to use SMTP
-//                $mail->Host = "smtp.gmail.com";  // Specify main and backup SMTP servers
-//                $mail->SMTPAuth = true;                               // Enable SMTP authentication
-//                $mail->Username = 'o.mohamed10@gmail.com';                 // SMTP username
-//                $mail->Password = '911910Om@r';                           // SMTP password
-//                $mail->SMTPSecure = 'tls';                          // Enable TLS encryption, `ssl` also accepted
-//                $mail->Port = 587;                                    // TCP port to connect to
-//
-//                $mail->setFrom('from@example.com', 'Mailer');
-//                $mail->addAddress($_POST["email"], 'omar mohamed');
-//
-//                $mail->Subject = 'Here is the subject';
-//                $mail->Body = 'This is the HTML message body <b>in bold!</b>';
-//                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-//
-////                die("===");
-//                if (!$mail->send()) {
-//                    die("===");
-//                    echo 'Message could not be sent.';
-//                    echo 'Mailer Error: ' . $mail->ErrorInfo;
-//                } else {
-//                    die("0000");
-//                    echo 'Message has been sent';
-//                }
-                $sendgrid = new SendGrid("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");
+                $sendgrid = new SendGrid();
                 $email = new SendGrid\Email();
                 $email
                         ->addTo($_POST["email"])

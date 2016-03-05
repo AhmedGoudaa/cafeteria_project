@@ -1,5 +1,5 @@
 <h1><b>Checks</b> </h1>
-<form method="POST" action="<?= BASE_URL ?>test">  
+<form method="POST" action="<?= BASE_URL ?>checks">  
 <div class="container">
     
 
@@ -69,7 +69,7 @@
 <script>
     $(document).ready(function () {
         $("#userlist").on('change', function () {
-                  $('<form action="<?= BASE_URL ?>test" method="POST">' + 
+                  $('<form action="<?= BASE_URL ?>checks" method="POST">' + 
                 '<input type="hidden" name="userId" value="' + $(this).val() + '">' +
                 '</form>    ').submit();
 //    alert($(this).val());
@@ -78,7 +78,7 @@
         (function update() {
             $.ajax({
             type: "GET",
-                    url: "<?= BASE_URL ?>test/update",
+                    url: "<?= BASE_URL ?>checks/update",
                     dataType: "text", //expect html to be returned                
                     success:   function (response) {
                         //$("#responsecontainer").html(response); 

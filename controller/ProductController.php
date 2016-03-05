@@ -4,11 +4,8 @@ class ProductController {
 
     public function __construct() {
         if ($_SESSION['type'] == 0) {
-<<<<<<< HEAD
-            header("Location: " . BASE_URL . "userpanel/index");
-=======
+
             header("Location: " . BASE_URL . "errorHandler/index");
->>>>>>> 449837dcd592cd5f3c6413ea3cac809ea9d4af5f
         }
     }
 
@@ -290,8 +287,6 @@ class ProductController {
         }
     }
 
-<<<<<<< HEAD
-=======
     function changeAvailability() {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $id = $_POST['product_id'];
@@ -308,5 +303,4 @@ class ProductController {
         }
     }
 
->>>>>>> 449837dcd592cd5f3c6413ea3cac809ea9d4af5f
 }

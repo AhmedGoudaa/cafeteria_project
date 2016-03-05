@@ -1,7 +1,7 @@
 <?php
 define("DB_NAME","cafeteria");
 define("DB_USER","root");
-define("DB_PASSWORD","12345");
+define("DB_PASSWORD","123");
 
 define("DB_SERVER","localhost");
 define("APP_PATH",__DIR__);
